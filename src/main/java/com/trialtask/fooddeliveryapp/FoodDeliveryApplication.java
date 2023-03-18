@@ -12,37 +12,37 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class FoodDeliveryApplication {
 
-    public static WeatherDataRepository dataRepository;
+    public static WeatherDataRepository repository;
 
     public static void main(String[] args) {
         SpringApplication.run(FoodDeliveryApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner run(WeatherDataRepository repository) {
+    public CommandLineRunner run(WeatherDataRepository dataRepository) {
         return args -> {
-            insertWeatherData(repository);
-            System.out.println(repository.findAll());
+            repository = dataRepository;
+            insertWeatherData();
+            System.out.println(dataRepository.findAll());
         };
     }
 
-    public static void insertWeatherData(WeatherDataRepository repository) {
-        dataRepository = repository;
-
+    public static void insertWeatherData() {
         try {
-            JobDetail job = JobBuilder.newJob(CollectWeatherReport.class)
-//                    .withIdentity("job", "group")
-                    .build();
+            JobDetail job = JobBuilder.newJob(CollectWeatherReport.class).build();
             Trigger trigger = TriggerBuilder.newTrigger()
-//                    .withIdentity("cronTrigger", "group")
-                    .withSchedule(CronScheduleBuilder.cronSchedule(ReadProperties.getProperties().getProperty("cron", "0 15 * * * ?")))
-                    .build();
+                    .withSchedule(
+                            CronScheduleBuilder.cronSchedule(
+                                    ReadProperties.getProperties().getProperty(
+                                            "cron", "0 15 * * * ?"
+                                    )
+                            )
+                    ).build();
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
             scheduler.start();
             scheduler.scheduleJob(job, trigger);
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        repository.save(new WeatherData("Tartu-Tõravere", 26242, -7.5f, 2.8f, "Few clouds", 1678478563));
     }
 }
