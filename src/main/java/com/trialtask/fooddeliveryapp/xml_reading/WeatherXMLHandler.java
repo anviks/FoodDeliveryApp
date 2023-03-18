@@ -56,7 +56,7 @@ public class WeatherXMLHandler extends DefaultHandler {
             case "station" -> {
                 station = false;
                 if (stations.contains(weatherData.getLocation())) {
-                    FoodDeliveryApplication.dataRepository.save(weatherData);
+                    FoodDeliveryApplication.repository.save(weatherData);
                 }
                 weatherData = null;
             }
