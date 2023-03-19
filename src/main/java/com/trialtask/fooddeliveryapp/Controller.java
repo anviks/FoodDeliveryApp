@@ -1,5 +1,7 @@
 package com.trialtask.fooddeliveryapp;
 
+import com.trialtask.fooddeliveryapp.enums.City;
+import com.trialtask.fooddeliveryapp.enums.Vehicle;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,25 +18,25 @@ public class Controller {
     @GetMapping
     public String getFee(@RequestParam("city") String cityString,
                          @RequestParam("vehicle") String vehicleString) {
-        DeliveryFeeCalculator.City city;
-        DeliveryFeeCalculator.Vehicle vehicle;
+        City city;
+        Vehicle vehicle;
 
-        List<String> allowedCityNames = Arrays.stream(DeliveryFeeCalculator.City.values())
+        List<String> allowedCityNames = Arrays.stream(City.values())
                 .map(c -> capitalise(c.name()))
                 .toList();
 
-        List<String> allowedVehicles = Arrays.stream(DeliveryFeeCalculator.Vehicle.values())
+        List<String> allowedVehicles = Arrays.stream(Vehicle.values())
                 .map(c -> c.name().toLowerCase())
                 .toList();
 
         if (allowedCityNames.contains(capitalise(cityString))) {
-            city = DeliveryFeeCalculator.City.valueOf(cityString.toUpperCase());
+            city = City.valueOf(cityString.toUpperCase());
         } else {
             return "Unfortunately, we only operate in " + String.join(", ", allowedCityNames);
         }
 
         if (allowedVehicles.contains(vehicleString.toLowerCase())) {
-            vehicle = DeliveryFeeCalculator.Vehicle.valueOf(vehicleString.toUpperCase());
+            vehicle = Vehicle.valueOf(vehicleString.toUpperCase());
         } else {
             return "Unfortunately, we can only deliver by " + String.join(", ", allowedVehicles);
         }

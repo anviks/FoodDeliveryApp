@@ -56,8 +56,7 @@
 
     <observations timestamp="1678639129">
         <station>
-            <name>Tallinn-Sample</name>
-            <note>Should not reach database</note>
+            <name>Tallinn-Harku</name>
             <wmocode>26038</wmocode>
             <longitude>24.602891666624284</longitude>
             <latitude>59.398122222355134</latitude>
@@ -77,18 +76,19 @@
         </station>
 
         <station>
-            <name>Tallinn-Harku</name>
-            <wmocode>26038</wmocode>
+            <name>Tallinn-Sample</name>
+            <note>Should not reach database</note>
+            <wmocode>2609938</wmocode>
             <longitude>24.602891666624284</longitude>
             <latitude>59.398122222355134</latitude>
-            <phenomenon>Variable clouds</phenomenon>
+            <phenomenon>Variable grass</phenomenon>
             <visibility>35.0</visibility>
             <precipitations>0</precipitations>
             <airpressure>996.7</airpressure>
             <relativehumidity>64</relativehumidity>
-            <airtemperature>-1.3</airtemperature>
+            <airtemperature>7</airtemperature>
             <winddirection>279</winddirection>
-            <windspeed>3.7</windspeed>
+            <windspeed>-2</windspeed>
             <windspeedmax>7.5</windspeedmax>
             <waterlevel/>
             <waterlevel_eh2000/>

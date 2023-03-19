@@ -1,6 +1,8 @@
 package com.trialtask.fooddeliveryapp;
 
 
+import com.trialtask.fooddeliveryapp.enums.City;
+import com.trialtask.fooddeliveryapp.enums.Vehicle;
 import com.trialtask.fooddeliveryapp.weather.WeatherData;
 
 import java.util.HashMap;
@@ -9,9 +11,6 @@ import java.util.Map;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class DeliveryFeeCalculator {
-    public enum Vehicle {CAR, SCOOTER, BIKE}
-
-    public enum City {TALLINN, TARTU, PÄRNU}
 
     private static final Map<City, Map<Vehicle, Float>> REGIONAL_FEES = new HashMap<>();
 
@@ -30,7 +29,9 @@ public class DeliveryFeeCalculator {
     }
 
     public float calculate() {
-        return getRegionalFee() + calculateWeatherFee();
+        float regionalFee = getRegionalFee();
+        float weatherFee = calculateWeatherFee();
+        return weatherFee != -1 ? regionalFee + weatherFee : -1;
     }
 
     private float getRegionalFee() {
@@ -38,7 +39,7 @@ public class DeliveryFeeCalculator {
     }
 
     private float calculateWeatherFee() {
-        WeatherData latestWeatherData = getLatestWeatherData(city);
+        WeatherData latestWeatherData = getLatestWeatherData();
         float fee = 0;
 
         float airTemperature = latestWeatherData.getAirTemperature();
@@ -78,7 +79,11 @@ public class DeliveryFeeCalculator {
         return fee;
     }
 
-    public WeatherData getLatestWeatherData(City city) {
+    public static WeatherData getLatestWeatherData(City city) {
+        return FoodDeliveryApplication.repository.findFirstByLocationContainingIgnoreCaseOrderByTimestampDesc(city.name());
+    }
+
+    public WeatherData getLatestWeatherData() {
         return FoodDeliveryApplication.repository.findFirstByLocationContainingIgnoreCaseOrderByTimestampDesc(city.name());
     }
 }
