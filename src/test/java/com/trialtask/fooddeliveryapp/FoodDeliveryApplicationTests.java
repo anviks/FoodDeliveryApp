@@ -40,14 +40,12 @@ class FoodDeliveryApplicationTests {
     void setup(final TestInfo info) {
         if (!info.getTags().contains("no-setup")) {
             XMLParser.parseXML(Path.of("./src/test/resources/weather-report.xml"));
-            System.out.println("done setup");
         }
     }
 
     @AfterEach
     void cleanup() {
         repository.deleteAll();
-        System.out.println("done deletion");
     }
 
     @Test
@@ -64,8 +62,8 @@ class FoodDeliveryApplicationTests {
         repository.save(sampleData);
         Optional<WeatherData> optionalEntry = repository.findById(sampleData.getId());
         assertTrue(optionalEntry.isPresent());
-        WeatherData entry = optionalEntry.get();
 
+        WeatherData entry = optionalEntry.get();
         assertEquals(sampleData, entry);
     }
 

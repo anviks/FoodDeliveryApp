@@ -7,6 +7,10 @@ import jakarta.persistence.Id;
 
 import java.util.Objects;
 
+/**
+ * Represents weather data for a particular location at a particular time.
+ * This class is a JPA entity and can be persisted to a database using an appropriate JPA implementation.
+ */
 @Entity
 public class WeatherData {
     @Id
@@ -19,6 +23,16 @@ public class WeatherData {
     private Float airTemperature = null;
     private Float windSpeed = null;
 
+    /**
+     * Constructs a new WeatherData object with the specified values.
+     *
+     * @param timestamp      the time at which the weather data was recorded, in Unix timestamp format
+     * @param location       the location for which the weather data is recorded
+     * @param wmocode        the World Meteorological Organization code for the location
+     * @param phenomenon     the phenomenon that the weather data represents (e.g., "Overcast", "Glaze", etc.)
+     * @param airTemperature the air temperature in Celsius
+     * @param windSpeed      the wind speed in meters per second
+     */
     public WeatherData(long timestamp, String location, int wmocode, String phenomenon, float airTemperature, float windSpeed) {
         this.timestamp = timestamp;
         this.location = location;
@@ -28,7 +42,19 @@ public class WeatherData {
         this.windSpeed = windSpeed;
     }
 
-    public WeatherData() {}
+    /**
+     * Default constructor required by JPA.
+     */
+    public WeatherData() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLocation() {
         return location;
@@ -78,6 +104,14 @@ public class WeatherData {
         this.timestamp = timestamp;
     }
 
+    /**
+     * Indicates whether some other object is equal to this one.
+     * Equality is determined by comparing the timestamp, location, wmocode,
+     * phenomenon, airTemperature, and windSpeed fields of the two objects.
+     *
+     * @param o the object to compare with
+     * @return true if this object is the same as the argument object, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,14 +128,6 @@ public class WeatherData {
     @Override
     public int hashCode() {
         return Objects.hash(timestamp, location, wmocode, phenomenon, airTemperature, windSpeed);
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     @Override

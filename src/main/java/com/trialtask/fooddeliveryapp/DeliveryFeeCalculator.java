@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@SuppressWarnings("NonAsciiCharacters")
+/**
+ * This class calculates the delivery fee based on the city, vehicle type and weather condition.
+ */
 public class DeliveryFeeCalculator {
 
     private static final Map<City, Map<Vehicle, Float>> REGIONAL_FEES = new HashMap<>();
@@ -23,11 +25,22 @@ public class DeliveryFeeCalculator {
     private final Vehicle vehicle;
     private final City city;
 
+    /**
+     * Constructs a new {@code DeliveryFeeCalculator} instance with the specified city and vehicle.
+     *
+     * @param city    the city for which the delivery fee is being calculated
+     * @param vehicle the vehicle for which the delivery fee is being calculated
+     */
     public DeliveryFeeCalculator(City city, Vehicle vehicle) {
         this.city = city;
         this.vehicle = vehicle;
     }
 
+    /**
+     * Calculates the delivery fee based on the city, vehicle type and weather condition.
+     *
+     * @return the delivery fee or -1 if the weather conditions are not suitable for delivery.
+     */
     public float calculate() {
         float regionalFee = getRegionalFee();
         float weatherFee = calculateWeatherFee();
@@ -79,11 +92,22 @@ public class DeliveryFeeCalculator {
         return fee;
     }
 
+    /**
+     * Returns the latest weather data for the specified city.
+     *
+     * @param city the city for which to retrieve the latest weather data.
+     * @return the latest weather data for the specified city.
+     */
     public static WeatherData getLatestWeatherData(City city) {
         return FoodDeliveryApplication.repository.findFirstByLocationContainingIgnoreCaseOrderByTimestampDesc(city.name());
     }
 
+    /**
+     * Returns the latest weather data for the city associated with this instance.
+     *
+     * @return the latest weather data for the city associated with this instance.
+     */
     public WeatherData getLatestWeatherData() {
-        return FoodDeliveryApplication.repository.findFirstByLocationContainingIgnoreCaseOrderByTimestampDesc(city.name());
+        return getLatestWeatherData(city);
     }
 }
