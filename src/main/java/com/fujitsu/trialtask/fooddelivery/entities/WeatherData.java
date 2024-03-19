@@ -1,4 +1,4 @@
-package com.trialtask.fooddeliveryapp.weather;
+package com.fujitsu.trialtask.fooddelivery.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

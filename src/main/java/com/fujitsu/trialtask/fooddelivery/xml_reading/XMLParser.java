@@ -1,5 +1,6 @@
-package com.trialtask.fooddeliveryapp.xml_reading;
+package com.fujitsu.trialtask.fooddelivery.xml_reading;
 
+import com.fujitsu.trialtask.fooddelivery.repositories.WeatherDataRepository;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,12 +21,12 @@ public class XMLParser {
      *
      * @param path the path of the weather report file
      */
-    public static void parseXML(Path path) {
+    public static void parseXML(Path path, WeatherDataRepository weatherDataRepository) {
         try {
             File file = new File(path.toUri());
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
-            WeatherXMLHandler handler = new WeatherXMLHandler();
+            WeatherXMLHandler handler = new WeatherXMLHandler(weatherDataRepository);
             saxParser.parse(file, handler);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();

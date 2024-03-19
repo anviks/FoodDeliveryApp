@@ -1,4 +1,4 @@
-package com.trialtask.fooddeliveryapp;
+package com.fujitsu.trialtask.fooddelivery;
 
 import java.io.FileInputStream;
 import java.io.IOException;

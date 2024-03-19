@@ -1,9 +1,10 @@
-package com.trialtask.fooddeliveryapp;
+package com.fujitsu.trialtask.fooddelivery;
 
 
-import com.trialtask.fooddeliveryapp.enums.City;
-import com.trialtask.fooddeliveryapp.enums.Vehicle;
-import com.trialtask.fooddeliveryapp.weather.WeatherData;
+import com.fujitsu.trialtask.fooddelivery.enums.City;
+import com.fujitsu.trialtask.fooddelivery.enums.Vehicle;
+import com.fujitsu.trialtask.fooddelivery.entities.WeatherData;
+import com.fujitsu.trialtask.fooddelivery.repositories.WeatherDataRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  * This class calculates the delivery fee based on the city, vehicle type and weather condition.
  */
 public class DeliveryFeeCalculator {
-
+    // Regional delivery fees
     private static final Map<City, Map<Vehicle, Float>> REGIONAL_FEES = new HashMap<>();
 
     static {
@@ -24,16 +25,19 @@ public class DeliveryFeeCalculator {
 
     private final Vehicle vehicle;
     private final City city;
+    private final WeatherDataRepository weatherDataRepository;
 
     /**
      * Constructs a new {@code DeliveryFeeCalculator} instance with the specified city and vehicle.
      *
-     * @param city    the city for which the delivery fee is being calculated
-     * @param vehicle the vehicle for which the delivery fee is being calculated
+     * @param city                  the city for which the delivery fee is being calculated
+     * @param vehicle               the vehicle for which the delivery fee is being calculated
+     * @param weatherDataRepository the repository for weather data
      */
-    public DeliveryFeeCalculator(City city, Vehicle vehicle) {
+    public DeliveryFeeCalculator(City city, Vehicle vehicle, WeatherDataRepository weatherDataRepository) {
         this.city = city;
         this.vehicle = vehicle;
+        this.weatherDataRepository = weatherDataRepository;
     }
 
     /**
@@ -44,7 +48,7 @@ public class DeliveryFeeCalculator {
     public float calculate() {
         float regionalFee = getRegionalFee();
         float weatherFee = calculateWeatherFee();
-        return weatherFee != -1 ? regionalFee + weatherFee : -1;
+        return weatherFee == -1 ? -1 : regionalFee + weatherFee;
     }
 
     private float getRegionalFee() {
@@ -63,17 +67,19 @@ public class DeliveryFeeCalculator {
             if (airTemperature < -10) {
                 fee += 1;
             } else if (airTemperature <= 0) {
-                fee += 0.5;
+                fee += 0.5F;
             }
 
             if (phenomenon != null) {
+                phenomenon = phenomenon.toLowerCase();
+
                 if (phenomenon.contains("snow") || phenomenon.contains("sleet")) {
                     fee += 1;
                 } else if (phenomenon.contains("rain") || phenomenon.contains("shower")) {
-                    fee += 0.5;
-                } else if (phenomenon.equals("Glaze")
-                        || phenomenon.equals("Hail")
-                        || phenomenon.contains("Thunder")) {
+                    fee += 0.5F;
+                } else if (phenomenon.equals("glaze")
+                        || phenomenon.equals("hail")
+                        || phenomenon.contains("thunder")) {
                     return -1;
                 }
             }
@@ -85,7 +91,7 @@ public class DeliveryFeeCalculator {
             }
 
             if (windSpeed >= 10) {
-                fee += 0.5;
+                fee += 0.5F;
             }
         }
 
@@ -96,10 +102,11 @@ public class DeliveryFeeCalculator {
      * Returns the latest weather data for the specified city.
      *
      * @param city the city for which to retrieve the latest weather data.
+     *
      * @return the latest weather data for the specified city.
      */
-    public static WeatherData getLatestWeatherData(City city) {
-        return FoodDeliveryApplication.repository.findFirstByLocationContainingIgnoreCaseOrderByTimestampDesc(city.name());
+    public WeatherData getLatestWeatherData(City city) {
+        return this.weatherDataRepository.findFirstByLocationContainingIgnoreCaseOrderByTimestampDesc(city.name());
     }
 
     /**

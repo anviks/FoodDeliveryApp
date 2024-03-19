@@ -1,7 +1,7 @@
-package com.trialtask.fooddeliveryapp.xml_reading;
+package com.fujitsu.trialtask.fooddelivery.xml_reading;
 
-import com.trialtask.fooddeliveryapp.FoodDeliveryApplication;
-import com.trialtask.fooddeliveryapp.weather.WeatherData;
+import com.fujitsu.trialtask.fooddelivery.entities.WeatherData;
+import com.fujitsu.trialtask.fooddelivery.repositories.WeatherDataRepository;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -17,10 +17,15 @@ import java.util.List;
  * If the location of the parsed data matches one of the specified stations, the parsed WeatherData object is saved to the repository.
  */
 public class WeatherXMLHandler extends DefaultHandler {
+    private final WeatherDataRepository weatherDataRepository;
     private boolean station, name, wmocode, airTemperature, windSpeed, phenomenon;
     private long timestamp;
     private WeatherData weatherData;
     private final List<String> stations = List.of("Tallinn-Harku", "Tartu-Tõravere", "Pärnu");
+
+    public WeatherXMLHandler(WeatherDataRepository weatherDataRepository) {
+        this.weatherDataRepository = weatherDataRepository;
+    }
 
     /**
      * Handles the start of an element by setting the appropriate flag based on the element's qName.
@@ -101,7 +106,7 @@ public class WeatherXMLHandler extends DefaultHandler {
             case "station" -> {
                 station = false;
                 if (stations.contains(weatherData.getLocation())) {
-                    FoodDeliveryApplication.repository.save(weatherData);
+                    weatherDataRepository.save(weatherData);
                 }
                 weatherData = null;
             }
