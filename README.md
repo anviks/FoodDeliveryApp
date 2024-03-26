@@ -70,7 +70,7 @@ The Food Delivery Application provides the following endpoints:
     - `PATCH /api/regional-fees/{id}`: Partially update a regional fee by ID.
     - `DELETE /api/regional-fees/{id}`: Delete a regional fee by ID.
 - Delivery Fee Calculation:
-    - `GET /api/delivery/{city}`: Calculate delivery fee for a specific city and vehicle.
+    - `GET /api/delivery/{city}?vehicle={vehicle_type}`: Calculate delivery fee for a specific city and vehicle.
 
 For more details on the request and response formats,
 refer to the API documentation [here](src/main/resources/static/food-delivery-api.yaml)
