@@ -1,6 +1,7 @@
 # Food Delivery Application
 
-Welcome to the Food Delivery Application documentation. This API provides endpoints for managing weather-related fees and
+Welcome to the Food Delivery Application documentation. This API provides endpoints for managing weather-related fees
+and
 regional fees for food delivery services. It also allows users to calculate delivery fees based on current weather
 conditions.
 
@@ -10,13 +11,10 @@ conditions.
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Endpoints](#endpoints)
-- [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
-Food Delivery API is a RESTful API built to facilitate the management of weather fees and regional fees for food
+Food Delivery Application is a RESTful API built to facilitate the management of weather fees and regional fees for food
 delivery services. It allows users to perform CRUD operations on weather fees and regional fees, as well as calculate
 delivery fees based on weather conditions and regional settings.
 
@@ -32,22 +30,22 @@ delivery fees based on weather conditions and regional settings.
 
 ## Getting Started
 
-To get started with the Food Delivery API, follow these steps:
+To get started with the Food Delivery Application, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone <repository-url>
+    ```bash
+    git clone https://github.com/anviks/FoodDeliveryApp.git
     ```
 2. Navigate to the project directory:
-   ```bash
-   cd food-delivery-api
-   ```
+    ```bash
+    cd FoodDeliveryApp
+    ```
 3. Install the dependencies:
-   ```bash
-   mvn install
-   ```
+    ```bash
+    mvn install
+    ```
 4. Run the application:
-   ```bash
+    ```bash
     mvn spring-boot:run
     ```
 
@@ -55,7 +53,7 @@ The application will start running on `http://localhost:8080`.
 
 ## Endpoints
 
-The Food Delivery API provides the following endpoints:
+The Food Delivery Application provides the following endpoints:
 
 - Weather Fees:
     - `GET /api/weather-fees`: Retrieve all weather fees.
@@ -75,6 +73,6 @@ The Food Delivery API provides the following endpoints:
     - `GET /api/delivery/{city}`: Calculate delivery fee for a specific city and vehicle.
 
 For more details on the request and response formats,
-refer to the API documentation at `src/main/resources/static/food-delivery-api.yaml`
+refer to the API documentation [here](src/main/resources/static/food-delivery-api.yaml)
 or visit the Swagger UI at `http://localhost:8080/swagger-ui/index.html` when the application is running.
 
