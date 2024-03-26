@@ -36,6 +36,4 @@ build/
 /myapp.log
 /myapp.log.*.*.gz
 *.db
-*.xml
-!/pom.xml
 .mvn
