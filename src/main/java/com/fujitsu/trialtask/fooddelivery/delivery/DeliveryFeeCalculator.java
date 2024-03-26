@@ -71,6 +71,10 @@ class DeliveryFeeCalculator {
         double[] maxFees = new double[WeatherCondition.values().length];
         List<WeatherFee> weatherFees = weatherFeeRepository.findAllByVehicle(vehicle);
 
+        if (latestWeatherData == null) {
+            return 0;
+        }
+
         Float airTemperature = latestWeatherData.getAirTemperature();
         Float windSpeed = latestWeatherData.getWindSpeed();
         String phenomenon = latestWeatherData.getPhenomenon();
