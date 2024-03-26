@@ -74,5 +74,4 @@ The Food Delivery Application provides the following endpoints:
 
 For more details on the request and response formats,
 refer to the API documentation [here](src/main/resources/static/food-delivery-api.yaml)
-or visit the Swagger UI at `http://localhost:8080/swagger-ui/index.html` when the application is running.
-
+or visit the Swagger UI at [localhost](http://localhost:8080/swagger-ui/index.html) when the application is running.
