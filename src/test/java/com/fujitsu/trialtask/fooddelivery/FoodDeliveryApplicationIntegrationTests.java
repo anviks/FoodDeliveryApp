@@ -74,9 +74,13 @@ class FoodDeliveryApplicationIntegrationTests {
 
     @Test
     public void dataSeeder_ShouldSeedCorrectFees() throws Exception {
+        weatherDataRepository.deleteAll();
         assertEquals(9, regionalFeeRepository.count());
         assertEquals(20, weatherFeeRepository.count());
         assertEquals(0, weatherDataRepository.count());
+
+        WeatherData weatherData = new WeatherData(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), City.TALLINN, 0, "Overcast", 10.0f, 5.0f);
+        weatherDataRepository.save(weatherData);
 
         mockMvc.perform(get("/api/delivery/{city}", City.TALLINN.name())
                 .param("vehicle", Vehicle.BIKE.name())

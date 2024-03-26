@@ -132,5 +132,16 @@ public class WeatherData {
         return Objects.hash(timestamp, city, wmocode, phenomenon, airTemperature, windSpeed);
     }
 
-
+    @Override
+    public String toString() {
+        return "WeatherData{" +
+                "id=" + id +
+                ", timestamp=" + timestamp +
+                ", city=" + city +
+                ", wmocode=" + wmocode +
+                ", phenomenon='" + phenomenon + '\'' +
+                ", airTemperature=" + airTemperature +
+                ", windSpeed=" + windSpeed +
+                '}';
+    }
 }
