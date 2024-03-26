@@ -33,7 +33,8 @@ build/
 .vscode/
 
 
-
+/myapp.log
+/myapp.log.*.*.gz
 *.db
 *.xml
 .mvn

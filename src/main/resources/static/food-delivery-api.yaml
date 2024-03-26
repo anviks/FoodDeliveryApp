@@ -1,0 +1,435 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/weather-fees/{id}:
+    get:
+      summary: Retrieve a weather fee by ID
+      operationId: getWeatherFeeById
+      tags:
+        - Weather Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the weather fee to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherFee'
+        "404":
+          description: Not Found
+    put:
+      summary: Update a weather fee
+      operationId: updateWeatherFee
+      tags:
+        - Weather Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the weather fee to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated weather fee object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeatherFee'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherFee'
+        "404":
+          description: Not Found
+    patch:
+      summary: Partially update a weather fee by ID
+      operationId: patchWeatherFee
+      tags:
+        - Weather Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the weather fee to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Partially updated weather fee object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeatherFee'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherFee'
+        "404":
+          description: Not Found
+    delete:
+      summary: Delete a weather fee by ID
+      operationId: deleteWeatherFee
+      tags:
+        - Weather Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the weather fee to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: No Content
+  /api/regional-fees/{id}:
+    get:
+      summary: Retrieve a regional fee by ID
+      operationId: getRegionalFeeById
+      tags:
+        - Regional Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the regional fee to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionalFee'
+        "404":
+          description: Not Found
+    put:
+      summary: Update a regional fee
+      operationId: updateRegionalFee
+      tags:
+        - Regional Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the regional fee to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated regional fee object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionalFee'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionalFee'
+        "404":
+          description: Not Found
+    delete:
+      summary: Delete a regional fee by ID
+      operationId: deleteRegionalFee
+      tags:
+        - Regional Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the regional fee to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: No Content
+    patch:
+      summary: Partially update a regional fee by ID
+      operationId: patchRegionalFee
+      tags:
+        - Regional Fees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the regional fee to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Partially updated regional fee object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionalFee'
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionalFee'
+        "404":
+          description: Not Found
+  /api/weather-fees:
+    get:
+      summary: Retrieve all weather fees
+      operationId: getAllWeatherFees
+      tags:
+        - Weather Fees
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeatherFee'
+    post:
+      summary: Create a new weather fee
+      operationId: createWeatherFee
+      tags:
+        - Weather Fees
+      requestBody:
+        description: Weather fee object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeatherFee'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherFee'
+  /api/regional-fees:
+    get:
+      summary: Retrieve all regional fees
+      operationId: getAllRegionalFees
+      tags:
+        - Regional Fees
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegionalFee'
+    post:
+      summary: Create a new regional fee
+      operationId: createRegionalFee
+      tags:
+        - Regional Fees
+      requestBody:
+        description: Regional fee object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionalFee'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionalFee'
+  /api/delivery/{city}:
+    get:
+      summary: Get Delivery Fee
+      description: Retrieves the delivery fee for the specified city and vehicle type.
+      tags:
+        - Delivery
+      parameters:
+        - name: city
+          in: path
+          required: true
+          description: The name of the city for delivery.
+          schema:
+            type: string
+        - name: vehicle
+          in: query
+          required: true
+          description: The type of vehicle for delivery.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  city:
+                    type: string
+                    description: The name of the city.
+                  vehicle:
+                    type: string
+                    description: The type of vehicle.
+                  fee:
+                    type: number
+                    format: float
+                    description: The calculated delivery fee.
+              example:
+                city: TALLINN
+                vehicle: BIKE
+                fee: 4.5
+        '404':
+          description: City or vehicle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              example:
+                statusCode: 404
+                statusDescription: Not Found
+                timestamp: "2024-03-25T19:00:03.5141421+02:00"
+                message: Resource not found
+                errorDetails:
+                  - "Vehicle not found"
+        '422':
+          description: Vehicle unavailable in the specified city (corresponding regional fee doesn't exist) or forbidden due to bad weather
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+              examples:
+                unavailable:
+                  value:
+                    statusCode: 422
+                    statusDescription: Unprocessable Entity
+                    timestamp: "2024-03-25T19:00:03.5141421+02:00"
+                    message: Vehicle is unavailable in the specified city
+                    errorDetails:
+                      - "The selected vehicle type (BIKE) is not available in the specified city (PÄRNU)"
+                forbidden:
+                  value:
+                    statusCode: 422
+                    statusDescription: Unprocessable Entity
+                    timestamp: "2024-03-25T19:00:03.5141421+02:00"
+                    message: Usage of selected vehicle type is forbidden
+                    errorDetails:
+                      - "Usage of selected vehicle type (BIKE) is forbidden due to current weather conditions (air temperature: -20.6 °C)"
+components:
+  schemas:
+    WeatherFee:
+      required:
+        - condition
+        - vehicle
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        vehicle:
+          type: string
+          enum:
+            - CAR
+            - SCOOTER
+            - BIKE
+        condition:
+          type: string
+          enum:
+            - AIR_TEMPERATURE
+            - WIND_SPEED
+            - PHENOMENON
+        above:
+          type: number
+          format: float
+        below:
+          type: number
+          format: float
+        phenomenon:
+          type: string
+        fee:
+          minimum: 0
+          type: number
+          format: float
+    RegionalFee:
+      required:
+        - city
+        - fee
+        - vehicle
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        city:
+          type: string
+          enum:
+            - TALLINN
+            - TARTU
+            - PÄRNU
+        vehicle:
+          type: string
+          enum:
+            - CAR
+            - SCOOTER
+            - BIKE
+        fee:
+          minimum: 0
+          type: number
+          format: float
+    ApiError:
+      required:
+        - statusCode
+        - statusDescription
+        - timestamp
+        - message
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+          description: The HTTP status code of the error
+        statusDescription:
+          type: string
+          description: The description of the HTTP status
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp when the error occurred
+        message:
+          type: string
+          description: A description of the error
+        errorDetails:
+          type: array
+          items:
+            type: string
+          description: Additional details about the error

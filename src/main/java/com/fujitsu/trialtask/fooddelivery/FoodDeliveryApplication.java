@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-public class FoodDeliveryApplication {
+class FoodDeliveryApplication {
     /**
      * The main method for the application.
      *
